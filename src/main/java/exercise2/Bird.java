@@ -1,24 +1,39 @@
 package exercise2;
 
-sealed abstract class Bird implements Animal permits /* Canary, */ Parrot, Chicken {
+sealed interface Bird extends Animal permits Canary, Parrot, Chicken {
+
+    boolean isFood();
+
+}
+
+record Canary(String name) implements Bird {
+    @Override
+    public boolean isFood() {
+        return false;
+    }
 
     @Override
     public String sayMyName() {
-        return "I'm a Bird.";
+        return null;
     }
 
-    abstract boolean isFood();
+    @Override
+    public int numberOfLegs() {
+        return 0;
+    }
+
+    @Override
+    public boolean isCute() {
+        return false;
+    }
 }
 
-//record Canary(String name) extends Bird {
-//
-//    boolean isFood() {
-//        return false;
-//    }
-//
-//}
+final class Parrot implements Bird {
+    @Override
+    public String sayMyName() {
+        return null;
+    }
 
-final class Parrot extends Bird {
     @Override
     public int numberOfLegs() {
         return 2;
@@ -30,13 +45,18 @@ final class Parrot extends Bird {
     }
 
     @Override
-    boolean isFood() {
+    public boolean isFood() {
         return false;
     }
 }
 
 
-non-sealed class Chicken extends Bird {
+non-sealed class Chicken implements Bird {
+    @Override
+    public String sayMyName() {
+        return null;
+    }
+
     @Override
     public int numberOfLegs() {
         return 2;
@@ -48,7 +68,7 @@ non-sealed class Chicken extends Bird {
     }
 
     @Override
-    boolean isFood() {
+    public boolean isFood() {
         return true;
     }
 }
